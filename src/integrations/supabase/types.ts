@@ -14,13 +14,175 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_log: {
+        Row: {
+          action: string
+          company_id: string | null
+          created_at: string
+          details: Json
+          entity: string
+          entity_id: string | null
+          id: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          company_id?: string | null
+          created_at?: string
+          details?: Json
+          entity: string
+          entity_id?: string | null
+          id?: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          company_id?: string | null
+          created_at?: string
+          details?: Json
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_log_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      companies: {
+        Row: {
+          activity_start_date: string | null
+          address: string | null
+          archived_at: string | null
+          created_at: string
+          currency: string
+          fiscal_year_start_month: number
+          id: string
+          legal_form: string
+          name: string
+          owner_id: string
+          sector: string
+          tax_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          activity_start_date?: string | null
+          address?: string | null
+          archived_at?: string | null
+          created_at?: string
+          currency?: string
+          fiscal_year_start_month?: number
+          id?: string
+          legal_form: string
+          name: string
+          owner_id?: string
+          sector: string
+          tax_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          activity_start_date?: string | null
+          address?: string | null
+          archived_at?: string | null
+          created_at?: string
+          currency?: string
+          fiscal_year_start_month?: number
+          id?: string
+          legal_form?: string
+          name?: string
+          owner_id?: string
+          sector?: string
+          tax_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      fiscal_years: {
+        Row: {
+          company_id: string
+          created_at: string
+          created_by: string
+          end_date: string
+          id: string
+          label: string
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          created_by?: string
+          end_date: string
+          id?: string
+          label: string
+          start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          created_by?: string
+          end_date?: string
+          id?: string
+          label?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fiscal_years_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          active_company_id: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          job_title: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          active_company_id?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          job_title?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active_company_id?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          job_title?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_access_company: { Args: { _company_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
