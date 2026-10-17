@@ -1,0 +1,95 @@
+import { z } from "zod";
+
+/** Business validation rules shared by forms and tests. */
+
+export const LEGAL_FORMS = ["SARL", "SARLU", "SA", "SAS", "SASU", "SNC", "SCS", "GIE", "Entreprise individuelle", "Autre"] as const;
+
+export const SECTORS = [
+  "Commerce",
+  "Industrie",
+  "Services",
+  "BTP",
+  "Agriculture et agro-industrie",
+  "Transport et logistique",
+  "Technologies et numérique",
+  "Hôtellerie et restauration",
+  "Santé",
+  "Éducation",
+  "Autre",
+] as const;
+
+const optionalText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max, { message: `${max} caractères maximum` })
+    .optional()
+    .transform((v) => (v ? v : null));
+
+export const companySchema = z.object({
+  name: z.string().trim().min(1, { message: "La raison sociale est obligatoire" }).max(200, { message: "200 caractères maximum" }),
+  legal_form: z.string().trim().min(1, { message: "La forme juridique est obligatoire" }).max(50),
+  sector: z.string().trim().min(1, { message: "Le secteur d'activité est obligatoire" }).max(100),
+  tax_id: optionalText(50),
+  address: optionalText(300),
+  currency: z.string().trim().length(3, { message: "Code devise sur 3 lettres (ex. XOF)" }).toUpperCase(),
+  activity_start_date: z
+    .string()
+    .optional()
+    .transform((v) => (v ? v : null))
+    .refine((v) => v === null || !Number.isNaN(Date.parse(v)), { message: "Date invalide" }),
+  fiscal_year_start_month: z.coerce.number().int().min(1).max(12),
+});
+export type CompanyInput = z.input<typeof companySchema>;
+export type CompanyValues = z.output<typeof companySchema>;
+
+export const fiscalYearSchema = z
+  .object({
+    label: z.string().trim().min(1, { message: "Le libellé est obligatoire" }).max(50),
+    start_date: z.string().min(1, { message: "Date de début obligatoire" }),
+    end_date: z.string().min(1, { message: "Date de fin obligatoire" }),
+    status: z.enum(["ouvert", "cloture"]),
+  })
+  .refine((v) => v.end_date > v.start_date, {
+    message: "La date de fin doit être postérieure à la date de début",
+    path: ["end_date"],
+  })
+  .refine((v) => monthsBetween(v.start_date, v.end_date) <= 24, {
+    message: "Un exercice ne peut pas dépasser 24 mois",
+    path: ["end_date"],
+  });
+export type FiscalYearValues = z.infer<typeof fiscalYearSchema>;
+
+export function monthsBetween(start: string, end: string): number {
+  const s = new Date(start);
+  const e = new Date(end);
+  return (e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth()) + 1;
+}
+
+/** Overlap check mirrored server-side by a database trigger. */
+export function rangesOverlap(aStart: string, aEnd: string, bStart: string, bEnd: string): boolean {
+  return aStart <= bEnd && bStart <= aEnd;
+}
+
+/** Default 12-month fiscal year starting at the given month of a year. */
+export function defaultFiscalYear(year: number, startMonth: number) {
+  const start = new Date(Date.UTC(year, startMonth - 1, 1));
+  const end = new Date(Date.UTC(year, startMonth - 1 + 12, 0));
+  const iso = (d: Date) => d.toISOString().slice(0, 10);
+  const label = startMonth === 1 ? `${year}` : `${year}-${year + 1}`;
+  return { label, start_date: iso(start), end_date: iso(end) };
+}
+
+export const passwordSchema = z
+  .string()
+  .min(8, { message: "8 caractères minimum" })
+  .max(72)
+  .regex(/[A-Za-z]/, { message: "Au moins une lettre" })
+  .regex(/[0-9]/, { message: "Au moins un chiffre" });
+
+/** Only same-origin relative paths are allowed as post-login redirects. */
+export function safeRedirect(value: unknown, fallback = "/tableau-de-bord"): string {
+  if (typeof value !== "string") return fallback;
+  if (!value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) return fallback;
+  return value;
+}
