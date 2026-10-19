@@ -51,7 +51,7 @@ function ProfilePage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Profil et paramètres" subtitle={ws.user.email ?? undefined} />
+      <PageHeader title="Profil et paramètres" subtitle={ws.user.email ?? ""} />
       <div className="grid gap-6 lg:grid-cols-2">
         <Panel title="Informations personnelles">
           <form key={ws.profile?.updated_at} onSubmit={onProfile} className="space-y-4">

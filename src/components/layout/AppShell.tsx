@@ -111,7 +111,7 @@ function ShellInner() {
           <div className="flex min-w-0 flex-1 items-center gap-2">
             {ws.activeCompanies.length > 0 && (
               <Select
-                value={ws.activeCompany?.id}
+                value={ws.activeCompany?.id ?? ""}
                 onValueChange={(id) => ws.setActiveCompany(id).catch((e) => toast.error(e.message))}
               >
                 <SelectTrigger className="h-9 w-full max-w-[220px] bg-card" aria-label="Entreprise active">
@@ -124,7 +124,7 @@ function ShellInner() {
               </Select>
             )}
             {ws.fiscalYears.length > 0 && (
-              <Select value={ws.activeFiscalYear?.id} onValueChange={ws.setActiveFiscalYearId}>
+              <Select value={ws.activeFiscalYear?.id ?? ""} onValueChange={ws.setActiveFiscalYearId}>
                 <SelectTrigger className="hidden h-9 w-[170px] bg-card sm:flex" aria-label="Période">
                   <CalendarDays className="h-4 w-4 text-muted-foreground" />
                   <SelectValue placeholder="Exercice" />

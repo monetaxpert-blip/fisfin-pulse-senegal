@@ -149,3 +149,36 @@
 @utility tabular {
   font-variant-numeric: tabular-nums;
 }
+
+/* Landing motion */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  &[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+@utility bg-hero {
+  background-image:
+    radial-gradient(60% 50% at 80% 10%, oklch(0.44 0.21 264 / 45%) 0%, transparent 70%),
+    radial-gradient(40% 40% at 10% 90%, oklch(0.42 0.24 274 / 30%) 0%, transparent 70%),
+    linear-gradient(180deg, var(--night) 0%, var(--navy) 100%);
+}
+@utility bg-grid-faint {
+  background-image: linear-gradient(oklch(1 0 0 / 5%) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0 / 5%) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@utility animate-rise {
+  animation: rise-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .animate-rise { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto !important; }
+}
+html { scroll-behavior: smooth; }

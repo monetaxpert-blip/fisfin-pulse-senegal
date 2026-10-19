@@ -92,7 +92,7 @@ function CompanyDialog({ value, onClose }: { value: Company | "new" | null; onCl
       if (c) await updateCompany(c.id, parsed.data);
       else {
         const created = await createCompany(parsed.data);
-        if (!ws.activeCompany) await ws.setActiveCompany(created.id);
+        if (!ws.activeCompany && created) await ws.setActiveCompany(created.id);
       }
       await qc.invalidateQueries({ queryKey: ["companies"] });
       await qc.invalidateQueries({ queryKey: ["activity"] });

@@ -7,7 +7,7 @@ const ACTION: Record<string, string> = { creation: "Création", modification: "M
 
 function describe(a: Activity) {
   const d = (a.details ?? {}) as Record<string, string>;
-  const entity = a.entity === "entreprise" ? `de l'entreprise ${d.nom ?? ""}` : `de l'exercice ${d.libelle ?? ""}`;
+  const entity = a.entity === "entreprise" ? `de l'entreprise ${d["nom"] ?? ""}` : `de l'exercice ${d["libelle"] ?? ""}`;
   return `${ACTION[a.action] ?? a.action} ${entity}`.trim();
 }
 
