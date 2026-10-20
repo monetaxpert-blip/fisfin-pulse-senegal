@@ -215,7 +215,7 @@ function Analyze() {
     { icon: Scale, t: "Équilibre financier", d: "FRNG, BFR, trésorerie nette." },
   ];
   return (
-    <section className="relative overflow-hidden bg-sidebar-gradient py-24 text-sidebar-foreground md:py-32">
+    <section className="relative overflow-hidden bg-sidebar-gradient py-24 text-sidebar-foreground md:py-28">
       <div className="pointer-events-none absolute inset-0 bg-grid-faint opacity-60" />
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
         <Reveal className="max-w-2xl">
