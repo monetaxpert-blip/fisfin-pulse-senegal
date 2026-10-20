@@ -2,10 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Pie, PieChart, Cell } from "recharts";
 import {
-  ArrowRight, ArrowDown, FileSpreadsheet, CheckCircle2, AlertTriangle, ShieldCheck, Menu, X, Database, BarChart3, Droplet, Scale, ListChecks, Compass, Lock,
+  ArrowRight, CalendarClock, FileSpreadsheet, CheckCircle2, AlertTriangle, ShieldCheck, Menu, X, Database, BarChart3, Droplet, Scale, ListChecks, Compass, Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/components/brand/Logo";
+import { LogoLink } from "@/components/brand/Logo";
 import { Reveal, useInView } from "@/components/landing/Reveal";
 import dashboard from "@/assets/fisfin-dashboard-demo.png.asset.json";
 import { cn } from "@/lib/utils";
