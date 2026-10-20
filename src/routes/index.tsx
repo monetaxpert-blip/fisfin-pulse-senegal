@@ -389,19 +389,19 @@ function Approach() {
           <h2 className="mt-4 text-3xl font-extrabold text-navy md:text-4xl">Comment fonctionne FISFIN</h2>
           <p className="mt-4 text-lg text-muted-foreground">Un parcours simple, construit par étapes, et une exigence constante de fiabilité.</p>
         </Reveal>
-        <ol className="relative mt-16 grid gap-6 md:grid-cols-3">
-          <div className="absolute left-0 right-0 top-6 hidden h-px bg-border md:block" aria-hidden />
+        <div className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
+          <div className="absolute left-6 right-6 top-6 hidden h-px bg-border md:block" aria-hidden />
           {steps.map((s, i) => (
             <Reveal key={s.t} delay={i * 120}>
-              <li className="relative">
+              <div className="relative">
                 <span className={cn("relative z-10 flex h-12 w-12 items-center justify-center rounded-full font-display text-lg font-bold shadow-card", s.live ? "bg-brand-gradient text-primary-foreground" : "border bg-card text-navy")}>{i + 1}</span>
                 <h3 className="mt-5 text-lg font-bold text-navy">{s.t}</h3>
-                <p className="mt-2 text-muted-foreground">{s.d}</p>
+                <p className="mt-2 max-w-[34ch] text-muted-foreground">{s.d}</p>
                 <span className={cn("mt-3 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium", s.live ? "bg-success/15 text-navy" : "bg-secondary text-secondary-foreground")}>{s.live ? "Disponible" : "Bientôt disponible"}</span>
-              </li>
+              </div>
             </Reveal>
           ))}
-        </ol>
+        </div>
         <div className="mt-20 grid gap-px overflow-hidden rounded-2xl border bg-border md:grid-cols-3">
           {principles.map((p, i) => (
             <Reveal key={p.t} delay={i * 80} className="h-full">
@@ -418,16 +418,55 @@ function Approach() {
   );
 }
 
+/* Vision produit : deux dimensions */
+function Vision() {
+  return (
+    <section className="bg-card py-24 md:py-28">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">Une seule plateforme</p>
+          <h2 className="mt-4 text-3xl font-extrabold text-navy md:text-4xl">Deux dimensions pour piloter votre PME</h2>
+          <p className="mt-4 text-lg text-muted-foreground">FISFIN réunit le pilotage financier et le suivi des échéances fiscales. Les deux modules sont construits par étapes.</p>
+        </Reveal>
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <Reveal>
+            <div className="flex h-full flex-col rounded-2xl border bg-background p-7 shadow-card">
+              <div className="flex items-start justify-between gap-3">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-primary"><BarChart3 className="h-6 w-6" /></span>
+                <span className="rounded-full bg-success/15 px-3 py-1 text-xs font-semibold text-navy">En cours de déploiement</span>
+              </div>
+              <h3 className="mt-5 text-xl font-bold text-navy">Pilotage financier</h3>
+              <p className="mt-2 text-muted-foreground">À partir de vos données comptables : indicateurs SYSCOHADA, diagnostics, comparaisons entre exercices et rapports.</p>
+              <p className="mt-auto pt-5 text-sm text-muted-foreground">Disponible aujourd'hui : comptes, entreprises et exercices comptables.</p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="flex h-full flex-col rounded-2xl border border-dashed bg-background p-7">
+              <div className="flex items-start justify-between gap-3">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-primary"><CalendarClock className="h-6 w-6" /></span>
+                <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-secondary-foreground">En préparation</span>
+              </div>
+              <h3 className="mt-5 text-xl font-bold text-navy">Suivi des échéances fiscales</h3>
+              <p className="mt-2 text-muted-foreground">Un calendrier fiscal personnalisé, avec les obligations applicables à votre entreprise et des rappels associés.</p>
+              <p className="mt-auto pt-5 text-sm text-muted-foreground">Ce module sera activé après validation du référentiel fiscal. Aucun calcul d'impôt n'est effectué.</p>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FinalCta() {
   return (
-    <section className="px-5 pb-24 md:px-8">
+    <section className="bg-background px-5 py-24 md:px-8">
       <Reveal>
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-hero px-6 py-16 text-center text-sidebar-foreground shadow-elevated md:px-16">
+        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-hero px-6 py-14 text-center text-sidebar-foreground shadow-elevated md:px-16 md:py-16">
           <div className="pointer-events-none absolute inset-0 bg-grid-faint opacity-60" />
-          <div className="relative">
-            <h2 className="text-3xl font-extrabold md:text-4xl">Commencez à structurer votre pilotage financier.</h2>
-            <p className="mx-auto mt-4 max-w-xl text-sidebar-muted">Créez votre compte et votre entreprise dès aujourd'hui. Les modules d'import et d'analyse arrivent progressivement.</p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="relative mx-auto flex max-w-2xl flex-col items-center">
+            <h2 className="text-3xl font-extrabold leading-tight md:text-4xl">Structurez dès maintenant votre pilotage financier.</h2>
+            <p className="mt-4 max-w-xl leading-relaxed text-sidebar-muted">Créez votre compte et votre entreprise. Les modules d'import, d'analyse et de suivi fiscal arrivent progressivement.</p>
+            <div className="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
               <Button asChild variant="brand" size="xl"><Link to="/auth" search={{ mode: "signup" }}>Créer un compte<ArrowRight /></Link></Button>
               <Button asChild variant="nav" size="xl"><Link to="/auth">Se connecter</Link></Button>
             </div>
@@ -440,23 +479,23 @@ function FinalCta() {
 
 function Landing() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background">
+    <div className="min-h-screen overflow-x-clip bg-background">
       <Nav />
       <main>
         <Hero />
         <Caveat />
-        <div className="flex justify-center bg-background pt-10"><a href="#fonctionnalites" aria-label="Continuer" className="flex h-10 w-10 items-center justify-center rounded-full border bg-card text-primary shadow-card transition-transform hover:translate-y-0.5"><ArrowDown className="h-4 w-4" /></a></div>
         <Understand />
         <Analyze />
         <Interpret />
         <Decide />
+        <Vision />
         <Approach />
         <FinalCta />
       </main>
       <footer className="border-t bg-card">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-8 text-center md:flex-row md:px-8 md:text-left">
-          <Logo className="w-20" />
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} FISFIN. Les analyses produites ne constituent ni un audit ni une certification comptable.</p>
+          <LogoLink surface={false} imgClassName="h-14" />
+          <p className="max-w-xl text-xs leading-relaxed text-muted-foreground">© {new Date().getFullYear()} FISFIN. Les analyses produites ne constituent ni un audit ni une certification comptable.</p>
         </div>
       </footer>
     </div>
