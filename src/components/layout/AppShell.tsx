@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { WorkspaceProvider, useWorkspace } from "@/lib/workspace";
-import { Logo } from "@/components/brand/Logo";
+import { LogoLink } from "@/components/brand/Logo";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -42,7 +42,7 @@ function SidebarContentBlock({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col bg-sidebar-gradient text-sidebar-foreground">
       <div className="p-5">
-        <div className="rounded-xl bg-card px-4 py-3"><Logo className="mx-auto w-32" /></div>
+        <LogoLink className="flex w-full py-2" imgClassName="h-16" />
       </div>
       <nav className="flex-1 space-y-1 px-3">
         {nav.map((item) => {

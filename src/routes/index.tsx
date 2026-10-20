@@ -144,7 +144,7 @@ function StepLabel({ n, label }: { n: string; label: string }) {
   );
 }
 
-/* A — Comprendre */
+/* A. Comprendre */
 function Understand() {
   const rows = [
     ["521100", "Banque", "12 450 000", ""],
@@ -153,7 +153,7 @@ function Understand() {
     ["701000", "Ventes de marchandises", "", "21 900 000"],
   ];
   return (
-    <section id="fonctionnalites" className="scroll-mt-24 bg-background py-24 md:py-32">
+    <section id="fonctionnalites" className="scroll-mt-24 bg-background py-24 md:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1fr_1.1fr]">
         <Reveal>
           <StepLabel n="1" label="Comprendre" />
@@ -202,7 +202,7 @@ function Understand() {
   );
 }
 
-/* B — Analyser */
+/* B. Analyser */
 const perf = [
   { m: "T1", ca: 4.2, rn: 0.6 }, { m: "T2", ca: 5.1, rn: 0.8 }, { m: "T3", ca: 5.6, rn: 0.7 }, { m: "T4", ca: 6.9, rn: 1.1 },
 ];
@@ -271,7 +271,7 @@ function Analyze() {
   );
 }
 
-/* C — Interpréter */
+/* C. Interpréter */
 function Interpret() {
   const statuses = [
     { c: "bg-success", l: "Calculé" },
@@ -280,7 +280,7 @@ function Interpret() {
     { c: "bg-destructive", l: "Bloqué par une anomalie" },
   ];
   return (
-    <section className="bg-background py-24 md:py-32">
+    <section className="bg-background py-24 md:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1.1fr_1fr]">
         <Reveal className="order-2 lg:order-1">
           <div className="rounded-2xl border bg-card p-6 shadow-elevated">
@@ -315,7 +315,7 @@ function Interpret() {
   );
 }
 
-/* D — Décider */
+/* D. Décider */
 const assets = [
   { name: "Immobilisations", v: 42 }, { name: "Stocks", v: 28 }, { name: "Créances", v: 18 }, { name: "Trésorerie", v: 12 },
 ];
@@ -323,12 +323,12 @@ const pieColors = ["var(--chart-3)", "var(--chart-1)", "var(--chart-2)", "var(--
 function Decide() {
   const { ref, visible } = useInView<HTMLDivElement>(0.3);
   return (
-    <section className="bg-card py-24 md:py-32">
+    <section className="bg-card py-24 md:py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
             <StepLabel n="4" label="Décider" />
-            <h2 className="mt-5 text-3xl font-extrabold text-navy md:text-4xl">Une vision claire pour éclairer vos décisions — qui restent les vôtres.</h2>
+            <h2 className="mt-5 text-3xl font-extrabold text-navy md:text-4xl">Une vision claire pour éclairer vos décisions, qui restent les vôtres.</h2>
             <p className="mt-5 text-lg text-muted-foreground">Comparez vos exercices, identifiez les postes qui pèsent sur votre performance et préparez vos échanges avec votre expert-comptable ou votre banquier sur une base structurée.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               {[{ i: Compass, t: "Comparaisons N / N-1 / N-2" }, { i: ListChecks, t: "Recommandations reliées aux indicateurs" }, { i: Database, t: "Rapports Excel et PDF" }].map((x) => (
@@ -382,7 +382,7 @@ function Approach() {
     { i: ListChecks, t: "Référentiel SYSCOHADA", d: "Formules et seuils issus d'un référentiel documenté et traçable." },
   ];
   return (
-    <section id="approche" className="scroll-mt-24 bg-background py-24 md:py-32">
+    <section id="approche" className="scroll-mt-24 bg-background py-24 md:py-28">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-primary">Notre approche</p>
