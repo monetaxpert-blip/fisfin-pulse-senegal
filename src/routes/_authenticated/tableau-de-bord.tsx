@@ -7,7 +7,7 @@ import { ActivityList } from "@/components/ActivityList";
 import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/tableau-de-bord")({
-  head: () => ({ meta: [{ title: "Tableau de bord — FISFIN" }, { name: "description", content: "Vue d'ensemble financière de votre entreprise." }, { property: "og:title", content: "Tableau de bord — FISFIN" }, { property: "og:description", content: "Vue d'ensemble financière." }] }),
+  head: () => ({ meta: [{ title: "Tableau de bord | FISFIN" }, { name: "description", content: "Vue d'ensemble financière de votre entreprise." }, { property: "og:title", content: "Tableau de bord | FISFIN" }, { property: "og:description", content: "Vue d'ensemble financière." }] }),
   component: Dashboard,
 });
 
@@ -38,7 +38,7 @@ function Dashboard() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-navy md:text-3xl">Bonjour{first ? `, ${first}` : ""}</h1>
-        <p className="mt-1 text-muted-foreground">Situation de {ws.activeCompany.name}{ws.activeFiscalYear ? ` — exercice ${ws.activeFiscalYear.label}` : ""}.</p>
+        <p className="mt-1 text-muted-foreground">Situation de {ws.activeCompany.name}{ws.activeFiscalYear ? `, exercice ${ws.activeFiscalYear.label}` : ""}.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

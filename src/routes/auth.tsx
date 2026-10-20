@@ -21,9 +21,9 @@ export const Route = createFileRoute("/auth")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Connexion — FISFIN" },
+      { title: "Connexion | FISFIN" },
       { name: "description", content: "Connectez-vous ou créez votre compte FISFIN." },
-      { property: "og:title", content: "Connexion — FISFIN" },
+      { property: "og:title", content: "Connexion | FISFIN" },
       { property: "og:description", content: "Accédez à votre espace de pilotage financier FISFIN." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -13,9 +13,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FISFIN — Prenez le contrôle de votre performance financière" },
+      { title: "FISFIN | Prenez le contrôle de votre performance financière" },
       { name: "description", content: "FISFIN transforme vos données comptables SYSCOHADA en indicateurs clairs pour piloter la santé financière de votre PME." },
-      { property: "og:title", content: "FISFIN — Prenez le contrôle de votre performance financière" },
+      { property: "og:title", content: "FISFIN | Prenez le contrôle de votre performance financière" },
       { property: "og:description", content: "Vos données comptables transformées en indicateurs clairs, pour les PME sénégalaises." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -49,7 +49,7 @@ function Nav() {
   return (
     <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled || open ? "border-b bg-card/95 shadow-card backdrop-blur" : "bg-transparent")}>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 md:h-20 md:px-8">
-        <a href="#top" className="shrink-0 rounded-lg bg-card px-3 py-1.5 shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="FISFIN — accueil">
+        <a href="#top" className="shrink-0 rounded-lg bg-card px-3 py-1.5 shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="FISFIN | accueil">
           <Logo className="w-20 md:w-24" />
         </a>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">

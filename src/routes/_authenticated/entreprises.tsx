@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/_authenticated/entreprises")({
-  head: () => ({ meta: [{ title: "Mes entreprises — FISFIN" }, { name: "description", content: "Gérez vos entreprises." }, { property: "og:title", content: "Mes entreprises — FISFIN" }, { property: "og:description", content: "Gestion des entreprises." }] }),
+  head: () => ({ meta: [{ title: "Mes entreprises | FISFIN" }, { name: "description", content: "Gérez vos entreprises." }, { property: "og:title", content: "Mes entreprises | FISFIN" }, { property: "og:description", content: "Gestion des entreprises." }] }),
   component: Companies,
 });
 
@@ -58,7 +58,7 @@ function Companies() {
                 </div>
                 <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
                   <dt className="text-muted-foreground">Devise</dt><dd>{c.currency === "XOF" ? "FCFA (XOF)" : c.currency}</dd>
-                  <dt className="text-muted-foreground">NINEA</dt><dd className="truncate">{c.tax_id || "—"}</dd>
+                  <dt className="text-muted-foreground">NINEA</dt><dd className="truncate">{c.tax_id || "Non renseigné"}</dd>
                   <dt className="text-muted-foreground">Début d'exercice</dt><dd>{MONTHS_FR[c.fiscal_year_start_month - 1]}</dd>
                   <dt className="text-muted-foreground">Début d'activité</dt><dd>{formatDate(c.activity_start_date)}</dd>
                 </dl>

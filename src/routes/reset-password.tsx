@@ -11,9 +11,9 @@ import { passwordSchema } from "@/lib/validation";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Nouveau mot de passe — FISFIN" },
+      { title: "Nouveau mot de passe | FISFIN" },
       { name: "description", content: "Définissez un nouveau mot de passe pour votre compte FISFIN." },
-      { property: "og:title", content: "Nouveau mot de passe — FISFIN" },
+      { property: "og:title", content: "Nouveau mot de passe | FISFIN" },
       { property: "og:description", content: "Réinitialisation du mot de passe FISFIN." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
