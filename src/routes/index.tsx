@@ -167,28 +167,33 @@ function Understand() {
             ))}
           </ul>
         </Reveal>
-        <Reveal delay={120}>
-          <div className="relative">
-            <div className="rounded-2xl border bg-card shadow-elevated">
-              <div className="flex items-center justify-between gap-3 border-b px-5 py-4">
-                <span className="flex min-w-0 items-center gap-2 font-semibold text-navy"><FileSpreadsheet className="h-5 w-5 shrink-0 text-primary" /><span className="truncate">balance_exemple.xlsx</span></span>
-                <span className="shrink-0 rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">Exemple</span>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[420px] text-sm">
-                  <thead><tr className="text-left text-xs uppercase tracking-wide text-muted-foreground"><th className="px-5 py-3 font-medium">Compte</th><th className="py-3 font-medium">Libellé</th><th className="py-3 text-right font-medium">Solde D</th><th className="px-5 py-3 text-right font-medium">Solde C</th></tr></thead>
-                  <tbody className="tabular">
-                    {rows.map((r) => (
-                      <tr key={r[0]} className="border-t transition-colors hover:bg-accent/50">
-                        <td className="px-5 py-3 font-semibold text-primary">{r[0]}</td><td className="py-3 text-navy">{r[1]}</td><td className="py-3 text-right">{r[2]}</td><td className="px-5 py-3 text-right">{r[3]}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+        <Reveal delay={120} className="min-w-0">
+          <div className="overflow-hidden rounded-2xl border bg-card shadow-elevated">
+            <div className="flex items-center justify-between gap-3 border-b px-5 py-4">
+              <span className="flex min-w-0 items-center gap-2 font-semibold text-navy"><FileSpreadsheet className="h-5 w-5 shrink-0 text-primary" /><span className="truncate">balance_exemple.xlsx</span></span>
+              <span className="shrink-0 rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">Exemple fictif</span>
             </div>
-            <div className="absolute -bottom-6 right-4 flex items-center gap-2 rounded-xl border bg-card px-4 py-3 text-sm shadow-elevated md:-right-6">
-              <AlertTriangle className="h-4 w-4 text-warning" /><span className="text-navy">2 avertissements à examiner</span>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[440px] text-sm">
+                <thead>
+                  <tr className="text-left text-xs uppercase tracking-wide text-muted-foreground">
+                    <th className="px-5 py-3 font-medium">Compte</th><th className="px-3 py-3 font-medium">Libellé</th><th className="whitespace-nowrap px-3 py-3 text-right font-medium">Solde D</th><th className="whitespace-nowrap px-5 py-3 text-right font-medium">Solde C</th>
+                  </tr>
+                </thead>
+                <tbody className="tabular">
+                  {rows.map((r) => (
+                    <tr key={r[0]} className="border-t transition-colors hover:bg-accent/50">
+                      <td className="px-5 py-3 font-semibold text-primary">{r[0]}</td>
+                      <td className="px-3 py-3 text-navy">{r[1]}</td>
+                      <td className="whitespace-nowrap px-3 py-3 text-right">{r[2]}</td>
+                      <td className="whitespace-nowrap px-5 py-3 text-right">{r[3]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="flex items-center gap-2 border-t bg-muted/60 px-5 py-3 text-sm">
+              <AlertTriangle className="h-4 w-4 shrink-0 text-warning" /><span className="text-navy">2 avertissements à examiner avant validation</span>
             </div>
           </div>
         </Reveal>
