@@ -47,25 +47,23 @@ function Nav() {
   }, [open]);
 
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled || open ? "border-b bg-card/95 shadow-card backdrop-blur" : "bg-transparent")}>
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 md:h-20 md:px-8">
-        <a href="#top" className="shrink-0 rounded-lg bg-card px-3 py-1.5 shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="FISFIN | accueil">
-          <Logo className="w-20 md:w-24" />
-        </a>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
+    <header className={cn("fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300", scrolled || open ? "border-b bg-card/95 shadow-card backdrop-blur" : "border-b border-transparent bg-transparent")}>
+      <div className="mx-auto grid h-[72px] max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-4 px-5 md:px-8">
+        <LogoLink imgClassName="h-11" className="py-0.5" />
+        <nav className="hidden items-center justify-center gap-1 lg:flex" aria-label="Navigation principale">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className={cn("rounded-lg px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", scrolled ? "text-navy hover:bg-accent hover:text-primary" : "text-sidebar-foreground/90 hover:bg-sidebar-accent")}>
+            <a key={l.href} href={l.href} className={cn("inline-flex h-10 items-center rounded-lg px-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", scrolled ? "text-navy hover:bg-accent hover:text-primary" : "text-sidebar-foreground/90 hover:bg-sidebar-accent hover:text-sidebar-foreground")}>
               {l.label}
             </a>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 lg:flex">
-          <Button asChild variant={scrolled ? "ghost" : "nav"}><Link to="/auth">Se connecter</Link></Button>
-          <Button asChild variant="brand"><Link to="/auth" search={{ mode: "signup" }}>Créer un compte</Link></Button>
+        <div className="hidden items-center justify-end gap-2 lg:flex">
+          <Button asChild variant={scrolled ? "outline" : "nav"} className="h-10 px-4"><Link to="/auth">Se connecter</Link></Button>
+          <Button asChild variant="brand" className="h-10 px-5"><Link to="/auth" search={{ mode: "signup" }}>Créer un compte</Link></Button>
         </div>
         <button
           type="button"
-          className={cn("flex h-11 w-11 items-center justify-center rounded-lg lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", scrolled || open ? "text-navy hover:bg-accent" : "text-sidebar-foreground hover:bg-sidebar-accent")}
+          className={cn("col-start-3 flex h-11 w-11 items-center justify-center justify-self-end rounded-lg transition-colors lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring", scrolled || open ? "text-navy hover:bg-accent" : "text-sidebar-foreground hover:bg-sidebar-accent")}
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -74,15 +72,15 @@ function Nav() {
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
-      <div id="mobile-menu" className={cn("grid overflow-hidden transition-[grid-template-rows] duration-300 lg:hidden", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
+      <div id="mobile-menu" inert={!open} className={cn("grid overflow-hidden transition-[grid-template-rows] duration-300 lg:hidden", open ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
         <div className="min-h-0">
-          <nav className="flex flex-col gap-1 px-5 pb-5 pt-2" aria-label="Navigation mobile">
+          <nav className="flex flex-col gap-1 px-5 pb-5 pt-1" aria-label="Navigation mobile">
             {links.map((l) => (
-              <a key={l.href} href={l.href} tabIndex={open ? 0 : -1} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 text-base font-medium text-navy hover:bg-accent">{l.label}</a>
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="flex min-h-12 items-center rounded-lg px-3 text-base font-medium text-navy hover:bg-accent">{l.label}</a>
             ))}
-            <div className="mt-2 grid grid-cols-2 gap-2">
-              <Button asChild variant="outline" tabIndex={open ? 0 : -1}><Link to="/auth">Se connecter</Link></Button>
-              <Button asChild variant="brand" tabIndex={open ? 0 : -1}><Link to="/auth" search={{ mode: "signup" }}>Créer un compte</Link></Button>
+            <div className="mt-3 grid grid-cols-1 gap-2 min-[380px]:grid-cols-2">
+              <Button asChild variant="outline" className="h-11"><Link to="/auth">Se connecter</Link></Button>
+              <Button asChild variant="brand" className="h-11"><Link to="/auth" search={{ mode: "signup" }}>Créer un compte</Link></Button>
             </div>
           </nav>
         </div>
@@ -93,36 +91,35 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-hero pb-0 pt-28 text-sidebar-foreground md:pt-36">
+    <section id="top" className="relative overflow-hidden bg-hero pt-32 text-sidebar-foreground md:pt-40">
       <div className="pointer-events-none absolute inset-0 bg-grid-faint [mask-image:linear-gradient(180deg,black,transparent_75%)]" />
       <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="animate-rise inline-flex items-center gap-2 rounded-full border border-sidebar-border bg-sidebar-accent/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-sidebar-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-success" />Pilotage financier · SYSCOHADA
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <p className="animate-rise inline-flex max-w-full items-center gap-2 rounded-full border border-sidebar-border bg-sidebar-accent/60 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-sidebar-muted sm:text-xs">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
+            <span>Pilotage financier et échéances fiscales des PME</span>
           </p>
-          <h1 className="animate-rise mt-6 text-4xl font-extrabold leading-[1.08] [animation-delay:80ms] sm:text-5xl lg:text-6xl">
+          <h1 className="animate-rise mt-6 max-w-[20ch] text-[2.125rem] font-extrabold leading-[1.1] [animation-delay:80ms] sm:text-5xl lg:text-[3.5rem]">
             Prenez le contrôle de votre performance financière.
           </h1>
-          <p className="animate-rise mx-auto mt-6 max-w-2xl text-base text-sidebar-muted [animation-delay:160ms] md:text-lg">
-            FISFIN transforme vos données comptables en indicateurs clairs pour mieux comprendre, suivre et piloter la santé financière de votre entreprise.
+          <p className="animate-rise mt-6 max-w-[62ch] text-base leading-relaxed text-sidebar-muted [animation-delay:160ms] md:text-lg">
+            FISFIN est une plateforme de pilotage financier et de suivi des échéances fiscales des PME. Elle transforme vos données comptables en indicateurs clairs pour mieux comprendre, suivre et piloter la santé financière de votre entreprise.
           </p>
-          <div className="animate-rise mt-9 flex flex-col justify-center gap-3 [animation-delay:240ms] sm:flex-row">
+          <div className="animate-rise mt-9 flex w-full flex-col items-stretch justify-center gap-3 [animation-delay:240ms] sm:w-auto sm:flex-row sm:items-center">
             <Button asChild variant="brand" size="xl"><a href="#decouvrir">Découvrir FISFIN<ArrowRight /></a></Button>
             <Button asChild variant="nav" size="xl"><a href="#approche">Comment ça fonctionne</a></Button>
           </div>
         </div>
-        <div id="decouvrir" className="animate-rise relative mx-auto mt-14 max-w-6xl scroll-mt-28 [animation-delay:360ms] md:mt-20">
-          <div className="absolute -inset-x-10 -top-10 bottom-0 rounded-[3rem] bg-royal/30 blur-3xl" aria-hidden />
-          <figure className="relative overflow-hidden rounded-t-2xl border border-sidebar-border bg-card p-1.5 pb-0 shadow-elevated md:rounded-t-3xl md:p-2.5 md:pb-0">
-            <div className="flex items-center gap-1.5 px-3 py-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-border" /><span className="h-2.5 w-2.5 rounded-full bg-border" /><span className="h-2.5 w-2.5 rounded-full bg-border" />
-              <span className="ml-3 truncate text-xs text-muted-foreground">Tableau de bord FISFIN</span>
+        <div id="decouvrir" className="animate-rise relative mx-auto mt-14 max-w-6xl scroll-mt-24 [animation-delay:360ms] md:mt-20">
+          <div className="absolute inset-x-6 -top-8 bottom-0 rounded-[3rem] bg-royal/30 blur-3xl" aria-hidden />
+          <figure className="relative rounded-t-2xl border border-b-0 border-sidebar-border bg-card p-1.5 pb-0 shadow-elevated md:rounded-t-3xl md:p-2.5 md:pb-0">
+            <div className="flex items-center gap-1.5 px-2 py-2 md:px-3">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-border" /><span className="h-2.5 w-2.5 shrink-0 rounded-full bg-border" /><span className="h-2.5 w-2.5 shrink-0 rounded-full bg-border" />
+              <span className="ml-2 min-w-0 flex-1 truncate text-xs text-muted-foreground">Tableau de bord FISFIN</span>
+              <span className="shrink-0 rounded-full bg-warning px-2.5 py-0.5 text-[10px] font-semibold text-warning-foreground sm:text-[11px]">Données de démonstration</span>
             </div>
-            <img src={dashboard.url} alt="Aperçu du tableau de bord FISFIN avec des données de démonstration" className="block w-full rounded-t-xl" width={1536} height={1024} />
+            <img src={dashboard.url} alt="Aperçu du tableau de bord FISFIN avec des données de démonstration" className="block h-auto w-full rounded-t-xl" width={1536} height={1024} />
           </figure>
-          <figcaption className="absolute left-4 top-14 rounded-full bg-warning px-3 py-1 text-[11px] font-semibold text-warning-foreground shadow-card md:left-8 md:top-16">
-            Données de démonstration
-          </figcaption>
         </div>
       </div>
     </section>
@@ -132,8 +129,8 @@ function Hero() {
 function Caveat() {
   return (
     <div className="border-b bg-card">
-      <p className="mx-auto max-w-5xl px-5 py-4 text-center text-xs text-muted-foreground md:text-sm">
-        Aperçu illustratif : les montants sont fictifs. Le calendrier fiscal visible sur la capture n'est pas inclus dans cette version, centrée sur l'analyse financière.
+      <p className="mx-auto max-w-3xl px-5 py-5 text-center text-xs leading-relaxed text-muted-foreground md:text-sm">
+        Aperçu illustratif : les montants et les échéances affichés sont fictifs. Le module de suivi des échéances fiscales est en cours de préparation.
       </p>
     </div>
   );
