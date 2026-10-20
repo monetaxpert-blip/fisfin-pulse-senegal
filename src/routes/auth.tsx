@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Logo } from "@/components/brand/Logo";
+import { LogoLink } from "@/components/brand/Logo";
 import { passwordSchema, safeRedirect } from "@/lib/validation";
 
 const search = z.object({
@@ -21,9 +21,9 @@ export const Route = createFileRoute("/auth")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Connexion — FISFIN" },
+      { title: "Connexion | FISFIN" },
       { name: "description", content: "Connectez-vous ou créez votre compte FISFIN." },
-      { property: "og:title", content: "Connexion — FISFIN" },
+      { property: "og:title", content: "Connexion | FISFIN" },
       { property: "og:description", content: "Accédez à votre espace de pilotage financier FISFIN." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -102,7 +102,7 @@ function AuthPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <aside className="relative hidden overflow-hidden bg-sidebar-gradient p-12 text-sidebar-foreground lg:flex lg:flex-col lg:justify-between">
-        <div className="w-fit rounded-xl bg-card px-5 py-4"><Logo className="w-36" /></div>
+        <LogoLink className="w-fit px-4 py-2" imgClassName="h-20" />
         <div>
           <p className="font-display text-3xl font-bold leading-snug">Des décisions éclairées<br />pour un avenir solide.</p>
           <p className="mt-4 max-w-md text-sidebar-muted">Analyse financière SYSCOHADA pour les PME sénégalaises.</p>
@@ -111,7 +111,7 @@ function AuthPage() {
       </aside>
       <main className="flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          <div className="mb-8 lg:hidden"><Logo className="mx-auto w-32" /></div>
+          <div className="mb-8 flex justify-center lg:hidden"><LogoLink surface={false} imgClassName="h-20" /></div>
           {sent ? (
             <div className="rounded-2xl border bg-card p-8 shadow-card">
               <h1 className="text-xl font-bold text-navy">Vérifiez votre boîte e-mail</h1>

@@ -1,15 +1,25 @@
+import { Link } from "@tanstack/react-router";
 import logo from "@/assets/fisfin-logo.png";
 import { cn } from "@/lib/utils";
 
-/** Official FISFIN logo (unaltered, background removed). Placed on a light surface to keep its original colors. */
+/** Official FISFIN logo (unaltered, background removed, original proportions kept). */
 export function Logo({ className }: { className?: string }) {
-  return <img src={logo} alt="FISFIN — Votre gestion simplifiée" className={cn("h-auto select-none", className)} draggable={false} />;
+  return <img src={logo} alt="FISFIN, votre gestion simplifiée" width={600} height={557} className={cn("h-auto w-auto select-none", className)} draggable={false} />;
 }
 
-export function LogoBadge({ className }: { className?: string }) {
+/** Logo on a light surface (keeps its original colors on dark backgrounds), linking to the home page. */
+export function LogoLink({ className, imgClassName, surface = true }: { className?: string; imgClassName?: string; surface?: boolean }) {
   return (
-    <div className={cn("rounded-xl bg-card px-4 py-3 shadow-card", className)}>
-      <Logo className="mx-auto w-32" />
-    </div>
+    <Link
+      to="/"
+      aria-label="FISFIN, retour à l'accueil"
+      className={cn(
+        "inline-flex shrink-0 items-center justify-center rounded-xl transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        surface && "bg-card px-2.5 py-1 shadow-card",
+        className,
+      )}
+    >
+      <Logo className={cn("h-12", imgClassName)} />
+    </Link>
   );
 }

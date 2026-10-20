@@ -74,9 +74,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FISFIN — Votre gestion simplifiée" },
+      { title: "FISFIN | Votre gestion simplifiée" },
       { name: "description", content: "Plateforme de pilotage financier des PME sénégalaises selon le référentiel SYSCOHADA." },
-      { property: "og:title", content: "FISFIN — Votre gestion simplifiée" },
+      { property: "og:title", content: "FISFIN | Votre gestion simplifiée" },
       { property: "og:description", content: "Plateforme de pilotage financier des PME sénégalaises selon le référentiel SYSCOHADA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -5,15 +5,15 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Logo } from "@/components/brand/Logo";
+import { LogoLink } from "@/components/brand/Logo";
 import { passwordSchema } from "@/lib/validation";
 
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Nouveau mot de passe — FISFIN" },
+      { title: "Nouveau mot de passe | FISFIN" },
       { name: "description", content: "Définissez un nouveau mot de passe pour votre compte FISFIN." },
-      { property: "og:title", content: "Nouveau mot de passe — FISFIN" },
+      { property: "og:title", content: "Nouveau mot de passe | FISFIN" },
       { property: "og:description", content: "Réinitialisation du mot de passe FISFIN." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -53,7 +53,7 @@ function ResetPassword() {
   return (
     <div className="flex min-h-screen items-center justify-center p-6">
       <div className="w-full max-w-md rounded-2xl border bg-card p-8 shadow-card">
-        <Logo className="mx-auto mb-6 w-28" />
+        <div className="mb-6 flex justify-center"><LogoLink surface={false} imgClassName="h-20" /></div>
         <h1 className="text-xl font-bold text-navy">Nouveau mot de passe</h1>
         {!ready ? (
           <p className="mt-3 text-sm text-muted-foreground">Ouvrez cette page depuis le lien reçu par e-mail. Si le lien a expiré, demandez-en un nouveau depuis la page de connexion.</p>

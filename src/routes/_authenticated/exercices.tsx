@@ -16,7 +16,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 export const Route = createFileRoute("/_authenticated/exercices")({
-  head: () => ({ meta: [{ title: "Exercices comptables — FISFIN" }, { name: "description", content: "Gérez les exercices comptables." }, { property: "og:title", content: "Exercices comptables — FISFIN" }, { property: "og:description", content: "Exercices comptables." }] }),
+  head: () => ({ meta: [{ title: "Exercices comptables | FISFIN" }, { name: "description", content: "Gérez les exercices comptables." }, { property: "og:title", content: "Exercices comptables | FISFIN" }, { property: "og:description", content: "Exercices comptables." }] }),
   component: FiscalYears,
 });
 

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/profil")({
-  head: () => ({ meta: [{ title: "Profil — FISFIN" }, { name: "description", content: "Votre profil FISFIN." }, { property: "og:title", content: "Profil — FISFIN" }, { property: "og:description", content: "Profil utilisateur." }] }),
+  head: () => ({ meta: [{ title: "Profil | FISFIN" }, { name: "description", content: "Votre profil FISFIN." }, { property: "og:title", content: "Profil | FISFIN" }, { property: "og:description", content: "Profil utilisateur." }] }),
   component: ProfilePage,
 });
 
