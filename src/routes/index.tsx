@@ -493,9 +493,9 @@ function Landing() {
         <FinalCta />
       </main>
       <footer className="border-t bg-card">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-8 text-center md:flex-row md:px-8 md:text-left">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-5 py-10 text-center md:px-8">
           <LogoLink surface={false} imgClassName="h-14" />
-          <p className="max-w-xl text-xs leading-relaxed text-muted-foreground">© {new Date().getFullYear()} FISFIN. Les analyses produites ne constituent ni un audit ni une certification comptable.</p>
+          <p className="mx-auto max-w-xl text-center text-xs leading-relaxed text-muted-foreground">© {new Date().getFullYear()} FISFIN. Les analyses produites ne constituent ni un audit ni une certification comptable.</p>
         </div>
       </footer>
     </div>
