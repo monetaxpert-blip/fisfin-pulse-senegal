@@ -175,7 +175,15 @@ export type Database = {
           phone?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_active_company_id_fkey"
+            columns: ["active_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
@@ -183,6 +191,7 @@ export type Database = {
     }
     Functions: {
       can_access_company: { Args: { _company_id: string }; Returns: boolean }
+      is_company_owner: { Args: { _company_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
