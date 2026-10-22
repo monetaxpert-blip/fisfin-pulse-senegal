@@ -4,7 +4,8 @@
 - [x] Affinage landing: débordements, alignements, logo cliquable, typographie, positionnement, responsive
 - [x] Centrer la mention de copyright du pied de page
 - [x] Audit technique (lecture seule)
-- [ ] Correctifs sécurité issus de l'audit (attend accord de l'utilisateur)
+- [x] Correctifs sécurité issus de l'audit (étape 1)
+- [ ] Test manuel avec deux vrais comptes dans l'interface (à faire par l'utilisateur)
 - [ ] Phase 2: import des balances (attend accord de l'utilisateur)
 - [ ] Phase 3+: normalisation SYSCOHADA et moteur financier (bloqué: référentiel maître FISFIN non fourni)
 - [ ] Module fiscal (bloqué: référentiel fiscal non validé)

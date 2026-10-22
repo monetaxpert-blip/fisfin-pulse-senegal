@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
-import type { CompanyValues, FiscalYearValues } from "@/lib/validation";
+import { dbErrorMessage, type CompanyValues, type FiscalYearValues } from "@/lib/validation";
 
 /** Data-access layer. All reads/writes rely on RLS policies enforced by the database. */
 
@@ -11,11 +11,7 @@ export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 export type Activity = Database["public"]["Tables"]["activity_log"]["Row"];
 
 function check<T>(res: { data: T; error: { message: string; code?: string } | null }): T {
-  if (res.error) {
-    if (res.error.code === "23P01") throw new Error("Cet exercice chevauche un exercice existant.");
-    if (res.error.code === "23505") throw new Error("Un exercice porte déjà ce libellé.");
-    throw new Error(res.error.message);
-  }
+  if (res.error) throw new Error(dbErrorMessage(res.error));
   return res.data;
 }
 
@@ -70,5 +66,7 @@ export async function updateFiscalYear(id: string, values: Partial<FiscalYearVal
 }
 
 export async function deleteFiscalYear(id: string) {
-  check(await supabase.from("fiscal_years").delete().eq("id", id));
+  const rows = check(await supabase.from("fiscal_years").delete().eq("id", id).select("id"));
+  // RLS silently filters rows the user may not delete: report it instead of a false success.
+  if (!rows || rows.length === 0) throw new Error("Suppression impossible : exercice introuvable ou accès non autorisé.");
 }
