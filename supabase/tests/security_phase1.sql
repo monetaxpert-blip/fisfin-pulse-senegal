@@ -3,15 +3,15 @@
 -- exactement comme l'API les évalue. Le bloc se termine par une exception
 -- volontaire : tout ce qui a été créé pendant le test est annulé.
 -- Utilisateur A : premier profil réel existant. Utilisateur B : identifiant fictif.
+-- Exécution : coller ce bloc dans l'outil SQL de données ; le résultat s'affiche
+-- sous forme d'erreur « RAPPORT FISFIN ... » (attendu : 23 réussis, 0 échoués).
 DO $test$
 DECLARE
   ua uuid := (SELECT id FROM public.profiles ORDER BY created_at LIMIT 1);
   ub uuid := gen_random_uuid();
   ca uuid; cb uuid; fy_open uuid; fy_closed uuid; fy_b uuid;
   n int; st text; ok int := 0; ko int := 0; report text := '';
-  ua_prev_active uuid;
 BEGIN
-  SELECT active_company_id INTO ua_prev_active FROM public.profiles WHERE id = ua;
 
   -- Données de départ (créées comme chaque utilisateur, sous RLS)
   PERFORM set_config('request.jwt.claims', json_build_object('sub', ua, 'role', 'authenticated')::text, true);

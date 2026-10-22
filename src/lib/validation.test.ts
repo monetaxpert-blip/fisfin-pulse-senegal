@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { companySchema, defaultFiscalYear, fiscalYearSchema, passwordSchema, rangesOverlap, safeRedirect } from "./validation";
+import { companySchema, dbErrorMessage, defaultFiscalYear, fiscalYearDeletion, fiscalYearSchema, passwordSchema, rangesOverlap, safeRedirect } from "./validation";
 
 describe("entreprise", () => {
   it("exige la raison sociale", () => {
@@ -31,6 +31,27 @@ describe("exercice comptable", () => {
   it("détecte le chevauchement de deux exercices", () => {
     expect(rangesOverlap("2025-01-01", "2025-12-31", "2025-12-31", "2026-12-31")).toBe(true);
     expect(rangesOverlap("2025-01-01", "2025-12-31", "2026-01-01", "2026-12-31")).toBe(false);
+  });
+});
+
+describe("suppression d'exercice", () => {
+  it("refuse la suppression d'un exercice clôturé", () => {
+    expect(fiscalYearDeletion({ status: "cloture" }).allowed).toBe(false);
+  });
+  it("refuse la suppression d'un exercice contenant des données comptables", () => {
+    expect(fiscalYearDeletion({ status: "ouvert" }, true).allowed).toBe(false);
+  });
+  it("autorise la suppression d'un exercice ouvert sans données", () => {
+    expect(fiscalYearDeletion({ status: "ouvert" }, false)).toEqual({ allowed: true, reason: null });
+  });
+});
+
+describe("erreurs de la base", () => {
+  it("traduit le refus de suppression d'entreprise", () => {
+    expect(dbErrorMessage({ code: "FS001", message: "x" })).toContain("archivage");
+  });
+  it("traduit le refus d'une entreprise active non autorisée", () => {
+    expect(dbErrorMessage({ code: "FS004", message: "x" })).toContain("Entreprise active invalide");
   });
 });
 
