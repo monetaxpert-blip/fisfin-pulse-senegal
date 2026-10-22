@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { CalendarRange, Lock, LockOpen, Pencil, Plus, Trash2 } from "lucide-react";
 import { useWorkspace } from "@/lib/workspace";
 import { createFiscalYear, deleteFiscalYear, updateFiscalYear, type FiscalYear } from "@/lib/data/queries";
-import { defaultFiscalYear, fiscalYearSchema } from "@/lib/validation";
+import { defaultFiscalYear, fiscalYearDeletion, fiscalYearSchema } from "@/lib/validation";
 import { formatDate } from "@/lib/format";
 import { PageHeader, Panel } from "@/components/layout/PageHeader";
 import { ActivityList } from "@/components/ActivityList";
@@ -46,6 +46,9 @@ function FiscalYears() {
       <Panel>
         {ws.fiscalYears.length === 0 ? (
           <div className="py-8 text-center"><CalendarRange className="mx-auto h-10 w-10 text-primary" /><p className="mt-3 text-muted-foreground">Aucun exercice. Créez-en un pour pouvoir importer une balance.</p></div>
+        ) : null}
+        {ws.fiscalYears.length > 0 && <p className="mb-3 text-xs text-muted-foreground">Un exercice clôturé ne peut pas être supprimé. Rouvrez-le d'abord si une correction est nécessaire.</p>}
+        {ws.fiscalYears.length === 0 ? null : (
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -60,7 +63,16 @@ function FiscalYears() {
                     <td className="py-3 text-right whitespace-nowrap">
                       <Button size="icon" variant="ghost" aria-label="Modifier" onClick={() => setEditing(f)}><Pencil /></Button>
                       <Button size="icon" variant="ghost" aria-label={f.status === "ouvert" ? "Clôturer" : "Rouvrir"} onClick={() => toggle(f)}>{f.status === "ouvert" ? <Lock /> : <LockOpen />}</Button>
-                      <Button size="icon" variant="ghost" aria-label="Supprimer" onClick={() => setToDelete(f)}><Trash2 className="text-destructive" /></Button>
+                      {(() => {
+                        const del = fiscalYearDeletion(f);
+                        return del.allowed ? (
+                          <Button size="icon" variant="ghost" aria-label="Supprimer" onClick={() => setToDelete(f)}><Trash2 className="text-destructive" /></Button>
+                        ) : (
+                          <span title={del.reason ?? undefined} className="inline-flex">
+                            <Button size="icon" variant="ghost" disabled aria-label={`Suppression impossible : ${del.reason}`}><Trash2 /></Button>
+                          </span>
+                        );
+                      })()}
                     </td>
                   </tr>
                 ))}
