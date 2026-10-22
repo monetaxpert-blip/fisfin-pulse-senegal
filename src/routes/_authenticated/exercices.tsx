@@ -46,11 +46,9 @@ function FiscalYears() {
       <Panel>
         {ws.fiscalYears.length === 0 ? (
           <div className="py-8 text-center"><CalendarRange className="mx-auto h-10 w-10 text-primary" /><p className="mt-3 text-muted-foreground">Aucun exercice. Créez-en un pour pouvoir importer une balance.</p></div>
-        ) : null}
-        {ws.fiscalYears.length > 0 && <p className="mb-3 text-xs text-muted-foreground">Un exercice clôturé ne peut pas être supprimé. Rouvrez-le d'abord si une correction est nécessaire.</p>}
-        {ws.fiscalYears.length === 0 ? null : (
         ) : (
           <div className="overflow-x-auto">
+            <p className="mb-3 text-xs text-muted-foreground">Un exercice clôturé ne peut pas être supprimé. Rouvrez-le d'abord si une correction est nécessaire.</p>
             <table className="w-full text-sm">
               <thead><tr className="border-b text-left text-muted-foreground"><th className="py-2 pr-4 font-medium">Libellé</th><th className="py-2 pr-4 font-medium">Début</th><th className="py-2 pr-4 font-medium">Fin</th><th className="py-2 pr-4 font-medium">Statut</th><th className="py-2 text-right font-medium">Actions</th></tr></thead>
               <tbody>
