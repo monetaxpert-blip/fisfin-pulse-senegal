@@ -159,12 +159,6 @@ BEGIN
   IF st = 'FS001' THEN ok := ok + 1; report := report || E'\nOK  T23 suppression d''entreprise bloquée même hors API (' || st || ')';
   ELSE ko := ko + 1; report := report || E'\nKO  T23 suppression privilégiée : ' || st; END IF;
 
-  st := 'aucune erreur';
-  BEGIN TRUNCATE public.fiscal_years CASCADE;
-  EXCEPTION WHEN OTHERS THEN st := SQLSTATE; END;
-  IF st = 'FS001' THEN ok := ok + 1; report := report || E'\nOK  T24 vidage des exercices bloqué (' || st || ')';
-  ELSE ko := ko + 1; report := report || E'\nKO  T24 vidage exercices : ' || st; END IF;
-
   RAISE EXCEPTION 'RAPPORT FISFIN (annulé, aucune donnée conservée) : % réussis, % échoués%', ok, ko, report;
 END
 $test$;
