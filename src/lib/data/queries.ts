@@ -61,8 +61,18 @@ export async function createFiscalYear(companyId: string, values: FiscalYearValu
   return check(await supabase.from("fiscal_years").insert({ ...values, company_id: companyId }).select().single());
 }
 
-export async function updateFiscalYear(id: string, values: Partial<FiscalYearValues>) {
+export async function updateFiscalYear(id: string, values: Partial<Omit<FiscalYearValues, "status">>) {
   return check(await supabase.from("fiscal_years").update(values).eq("id", id).select().single());
+}
+
+/** Closing is final for deletion: the database keeps first_closed_at forever. */
+export async function closeFiscalYear(id: string) {
+  return check(await supabase.from("fiscal_years").update({ status: "cloture" }).eq("id", id).select().single());
+}
+
+/** Reopening requires a reason; the database validates it, stamps the author and logs it. */
+export async function reopenFiscalYear(id: string, reason: string) {
+  return check(await supabase.from("fiscal_years").update({ status: "ouvert", reopen_reason: reason }).eq("id", id).select().single());
 }
 
 export async function deleteFiscalYear(id: string) {

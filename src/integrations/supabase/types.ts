@@ -105,34 +105,49 @@ export type Database = {
       }
       fiscal_years: {
         Row: {
+          closed_at: string | null
           company_id: string
           created_at: string
           created_by: string
           end_date: string
+          first_closed_at: string | null
           id: string
           label: string
+          reopen_reason: string | null
+          reopened_at: string | null
+          reopened_by: string | null
           start_date: string
           status: string
           updated_at: string
         }
         Insert: {
+          closed_at?: string | null
           company_id: string
           created_at?: string
           created_by?: string
           end_date: string
+          first_closed_at?: string | null
           id?: string
           label: string
+          reopen_reason?: string | null
+          reopened_at?: string | null
+          reopened_by?: string | null
           start_date: string
           status?: string
           updated_at?: string
         }
         Update: {
+          closed_at?: string | null
           company_id?: string
           created_at?: string
           created_by?: string
           end_date?: string
+          first_closed_at?: string | null
           id?: string
           label?: string
+          reopen_reason?: string | null
+          reopened_at?: string | null
+          reopened_by?: string | null
           start_date?: string
           status?: string
           updated_at?: string

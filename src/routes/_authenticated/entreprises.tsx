@@ -64,7 +64,13 @@ function Companies() {
                 </dl>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {!active && !c.archived_at && <Button size="sm" onClick={() => ws.setActiveCompany(c.id).then(() => toast.success(`${c.name} est l'entreprise active.`)).catch((e) => toast.error(e.message))}>Activer</Button>}
-                  <Button size="sm" variant="outline" onClick={() => setEditing(c)}><Pencil />Modifier</Button>
+                  {c.archived_at ? (
+                    <span title="Entreprise archivée : restaurez-la avant toute modification." className="inline-flex">
+                      <Button size="sm" variant="outline" disabled aria-label="Modification impossible : entreprise archivée, restaurez-la d'abord"><Pencil />Modifier</Button>
+                    </span>
+                  ) : (
+                    <Button size="sm" variant="outline" onClick={() => setEditing(c)}><Pencil />Modifier</Button>
+                  )}
                   <Button size="sm" variant="ghost" onClick={() => toggleArchive(c)}>{c.archived_at ? <><ArchiveRestore />Restaurer</> : <><Archive />Archiver</>}</Button>
                 </div>
               </div>

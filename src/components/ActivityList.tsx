@@ -3,12 +3,25 @@ import { Building2, CalendarRange, History } from "lucide-react";
 import { activityQuery, type Activity } from "@/lib/data/queries";
 import { formatDateTime } from "@/lib/format";
 
-const ACTION: Record<string, string> = { creation: "Création", modification: "Modification", suppression: "Suppression", archivage: "Archivage" };
+const ACTION: Record<string, string> = {
+  creation: "Création",
+  modification: "Modification",
+  suppression: "Suppression",
+  archivage: "Archivage",
+  restauration: "Restauration",
+  cloture: "Clôture",
+  reouverture: "Réouverture",
+};
 
 function describe(a: Activity) {
   const d = (a.details ?? {}) as Record<string, string>;
   const entity = a.entity === "entreprise" ? `de l'entreprise ${d["nom"] ?? ""}` : `de l'exercice ${d["libelle"] ?? ""}`;
   return `${ACTION[a.action] ?? a.action} ${entity}`.trim();
+}
+
+function reason(a: Activity): string | null {
+  const d = (a.details ?? {}) as Record<string, unknown>;
+  return a.action === "reouverture" && typeof d["motif"] === "string" ? d["motif"] : null;
 }
 
 export function ActivityList({ companyId, limit = 8 }: { companyId: string | null | undefined; limit?: number }) {
@@ -28,7 +41,10 @@ export function ActivityList({ companyId, limit = 8 }: { companyId: string | nul
         return (
           <li key={a.id} className="flex items-start gap-3 py-3">
             <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-primary"><Icon className="h-4 w-4" /></span>
-            <span className="min-w-0 flex-1 text-sm font-medium">{describe(a)}</span>
+            <span className="min-w-0 flex-1 text-sm">
+              <span className="font-medium">{describe(a)}</span>
+              {reason(a) && <span className="mt-0.5 block break-words text-xs text-muted-foreground">Motif : {reason(a)}</span>}
+            </span>
             <span className="shrink-0 text-xs text-muted-foreground">{formatDateTime(a.created_at)}</span>
           </li>
         );
