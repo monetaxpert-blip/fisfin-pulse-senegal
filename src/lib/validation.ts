@@ -94,15 +94,32 @@ export function safeRedirect(value: unknown, fallback = "/tableau-de-bord"): str
   return value;
 }
 
+type FiscalYearState = { status: string; first_closed_at?: string | null };
+
 /**
  * Mirrors the database delete guard on fiscal years (trigger fiscal_years_no_delete).
  * The database stays the authority; this only drives the interface.
  */
-export function fiscalYearDeletion(fy: { status: string }, hasAccountingData = false): { allowed: boolean; reason: string | null } {
+export function fiscalYearDeletion(fy: FiscalYearState, hasAccountingData = false, companyArchived = false): { allowed: boolean; reason: string | null } {
   if (fy.status === "cloture") return { allowed: false, reason: "Un exercice clôturé ne peut pas être supprimé." };
+  if (fy.first_closed_at) return { allowed: false, reason: "Cet exercice a déjà été clôturé : il reste conservé même après réouverture." };
+  if (companyArchived) return { allowed: false, reason: "Entreprise archivée : restaurez-la d'abord." };
   if (hasAccountingData) return { allowed: false, reason: "Cet exercice contient des imports ou des données comptables et ne peut pas être supprimé." };
   return { allowed: true, reason: null };
 }
+
+/** Mirrors the database lifecycle guard: a closed fiscal year must be reopened (with a reason) before editing. */
+export function fiscalYearEditable(fy: FiscalYearState): { allowed: boolean; reason: string | null } {
+  if (fy.status === "cloture") return { allowed: false, reason: "Un exercice clôturé ne peut pas être modifié. Rouvrez-le d'abord avec un motif." };
+  return { allowed: true, reason: null };
+}
+
+/** Reason required to reopen a closed fiscal year (stored and traced in the history). */
+export const reopenReasonSchema = z
+  .string()
+  .trim()
+  .min(10, { message: "Indiquez un motif d'au moins 10 caractères" })
+  .max(500, { message: "500 caractères maximum" });
 
 /** Translates database error codes into French user messages. */
 export function dbErrorMessage(error: { message: string; code?: string }): string {
@@ -110,12 +127,17 @@ export function dbErrorMessage(error: { message: string; code?: string }): strin
     case "23P01": return "Cet exercice chevauche un exercice existant.";
     case "23505": return "Un exercice porte déjà ce libellé.";
     case "23503": return "Cet élément est lié à d'autres données et ne peut pas être supprimé.";
+    case "23514": return "Une valeur saisie ne respecte pas les règles attendues.";
     case "42501": return "Vous n'avez pas les droits nécessaires pour cette opération.";
     case "FS001": return "La suppression définitive d'une entreprise est interdite. Utilisez l'archivage.";
     case "FS002": return "Un exercice clôturé ne peut pas être supprimé.";
     case "FS003": return "Cet exercice contient des imports ou des données comptables et ne peut pas être supprimé.";
     case "FS004": return "Entreprise active invalide : accès non autorisé ou entreprise archivée.";
     case "FS005": return error.message;
+    case "FS006": return "Cet exercice a déjà été clôturé : il reste conservé même après réouverture.";
+    case "FS007": return "Entreprise archivée : restaurez-la avant de créer, modifier ou supprimer quoi que ce soit.";
+    case "FS008": return "Un exercice clôturé ne peut pas être modifié. Rouvrez-le d'abord avec un motif.";
+    case "FS009": return "La réouverture d'un exercice clôturé exige un motif d'au moins 10 caractères.";
     default: return error.message;
   }
 }

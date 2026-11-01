@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { companySchema, dbErrorMessage, defaultFiscalYear, fiscalYearDeletion, fiscalYearSchema, passwordSchema, rangesOverlap, safeRedirect } from "./validation";
+import { companySchema, dbErrorMessage, defaultFiscalYear, fiscalYearDeletion, fiscalYearEditable, fiscalYearSchema, passwordSchema, rangesOverlap, reopenReasonSchema, safeRedirect } from "./validation";
 
 describe("entreprise", () => {
   it("exige la raison sociale", () => {
@@ -38,11 +38,31 @@ describe("suppression d'exercice", () => {
   it("refuse la suppression d'un exercice clôturé", () => {
     expect(fiscalYearDeletion({ status: "cloture" }).allowed).toBe(false);
   });
+  it("refuse la suppression d'un exercice rouvert après une clôture", () => {
+    expect(fiscalYearDeletion({ status: "ouvert", first_closed_at: "2026-01-15T10:00:00Z" }).allowed).toBe(false);
+  });
+  it("refuse la suppression d'un exercice d'une entreprise archivée", () => {
+    expect(fiscalYearDeletion({ status: "ouvert" }, false, true).allowed).toBe(false);
+  });
   it("refuse la suppression d'un exercice contenant des données comptables", () => {
     expect(fiscalYearDeletion({ status: "ouvert" }, true).allowed).toBe(false);
   });
-  it("autorise la suppression d'un exercice ouvert sans données", () => {
-    expect(fiscalYearDeletion({ status: "ouvert" }, false)).toEqual({ allowed: true, reason: null });
+  it("autorise la suppression d'un exercice ouvert jamais clôturé et sans données", () => {
+    expect(fiscalYearDeletion({ status: "ouvert", first_closed_at: null }, false)).toEqual({ allowed: true, reason: null });
+  });
+});
+
+describe("clôture et réouverture d'exercice", () => {
+  it("un exercice clôturé n'est pas modifiable", () => {
+    expect(fiscalYearEditable({ status: "cloture" }).allowed).toBe(false);
+    expect(fiscalYearEditable({ status: "ouvert" }).allowed).toBe(true);
+  });
+  it("la réouverture exige un motif d'au moins 10 caractères", () => {
+    expect(reopenReasonSchema.safeParse("   court  ").success).toBe(false);
+    expect(reopenReasonSchema.safeParse("Correction d'une écriture de clôture").success).toBe(true);
+  });
+  it("le motif de réouverture est limité à 500 caractères", () => {
+    expect(reopenReasonSchema.safeParse("x".repeat(501)).success).toBe(false);
   });
 });
 
@@ -52,6 +72,12 @@ describe("erreurs de la base", () => {
   });
   it("traduit le refus d'une entreprise active non autorisée", () => {
     expect(dbErrorMessage({ code: "FS004", message: "x" })).toContain("Entreprise active invalide");
+  });
+  it("traduit les refus liés à la clôture et à l'archivage", () => {
+    expect(dbErrorMessage({ code: "FS006", message: "x" })).toContain("déjà été clôturé");
+    expect(dbErrorMessage({ code: "FS007", message: "x" })).toContain("Entreprise archivée");
+    expect(dbErrorMessage({ code: "FS008", message: "x" })).toContain("ne peut pas être modifié");
+    expect(dbErrorMessage({ code: "FS009", message: "x" })).toContain("motif");
   });
 });
 
