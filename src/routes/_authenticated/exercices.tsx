@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { CalendarRange, Lock, LockOpen, Pencil, Plus, Trash2 } from "lucide-react";
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/exercices")({
   component: FiscalYears,
 });
 
-function DisabledIcon({ reason, children }: { reason: string; children: React.ReactNode }) {
+function DisabledIcon({ reason, children }: { reason: string; children: ReactNode }) {
   return (
     <span title={reason} className="inline-flex">
       <Button size="icon" variant="ghost" disabled aria-label={reason}>{children}</Button>
@@ -168,7 +168,9 @@ function FyDialog({ value, onClose, onSaved }: { value: FiscalYear | "new" | nul
     if (!parsed.success) return toast.error(parsed.error.issues[0]!.message);
     setBusy(true);
     try {
-      if (f) await updateFiscalYear(f.id, parsed.data); else await createFiscalYear(ws.activeCompany!.id, parsed.data);
+      // Status changes go only through closeFiscalYear / reopenFiscalYear.
+      const { status: _status, ...fields } = parsed.data;
+      if (f) await updateFiscalYear(f.id, fields); else await createFiscalYear(ws.activeCompany!.id, parsed.data);
       await onSaved(); toast.success(f ? "Exercice modifié." : "Exercice créé."); onClose();
     } catch (err) { toast.error((err as Error).message); } finally { setBusy(false); }
   }
