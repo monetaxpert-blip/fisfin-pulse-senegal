@@ -4,7 +4,7 @@
 -- Identités simulées au niveau de la base (rôle + jeton JWT), comme l'API les évalue.
 -- Utilisateur A : premier profil réel existant. Utilisateur B : identifiant fictif.
 -- Le bloc se termine par une exception volontaire : tout est annulé.
--- Résultat attendu : « RAPPORT FISFIN 1B ... : N réussis, 0 échoués ».
+-- Exécution : outil SQL de modification de données. Attendu : « RAPPORT FISFIN 1B ... : 27 réussis, 0 échoués ».
 DO $test$
 DECLARE
   ua uuid := (SELECT id FROM public.profiles ORDER BY created_at LIMIT 1);
