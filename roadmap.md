@@ -5,7 +5,8 @@
 - [x] Centrer la mention de copyright du pied de page
 - [x] Audit technique (lecture seule)
 - [x] Correctifs sécurité issus de l'audit (étape 1)
-- [ ] Test manuel avec deux vrais comptes dans l'interface (à faire par l'utilisateur)
+- [x] Compléments étape 1 : exercices clôturés, entreprises archivées, avertissements fonctions d'accès
+- [ ] Test manuel avec deux vrais comptes dans l'interface (à faire par l'utilisateur), dont clôture/réouverture/archivage dans l'interface
 - [ ] Phase 2: import des balances (attend accord de l'utilisateur)
 - [ ] Phase 3+: normalisation SYSCOHADA et moteur financier (bloqué: référentiel maître FISFIN non fourni)
 - [ ] Module fiscal (bloqué: référentiel fiscal non validé)
