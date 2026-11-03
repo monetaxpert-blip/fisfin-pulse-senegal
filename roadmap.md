@@ -7,6 +7,7 @@
 - [x] Correctifs sécurité issus de l'audit (étape 1)
 - [x] Compléments étape 1 : exercices clôturés, entreprises archivées, avertissements fonctions d'accès
 - [ ] Test manuel avec deux vrais comptes dans l'interface (à faire par l'utilisateur), dont clôture/réouverture/archivage dans l'interface
-- [ ] Phase 2: import des balances (attend accord de l'utilisateur)
+- [x] Phase 2A: conception de l'importateur des balances (document livré)
+- [ ] Phase 2B: développement de l'importateur (attend la validation de la conception et les réponses aux 5 questions)
 - [ ] Phase 3+: normalisation SYSCOHADA et moteur financier (bloqué: référentiel maître FISFIN non fourni)
 - [ ] Module fiscal (bloqué: référentiel fiscal non validé)
