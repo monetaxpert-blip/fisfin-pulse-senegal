@@ -201,7 +201,10 @@ BEGIN
   -- Catalogue : seules les deux fonctions attendues sont SECURITY DEFINER et appelables par un compte connecté dans le schéma exposé
   SELECT count(*) INTO n FROM pg_proc p JOIN pg_namespace s ON s.oid = p.pronamespace
    WHERE s.nspname = 'public' AND p.prosecdef AND has_function_privilege('authenticated', p.oid, 'EXECUTE')
-     AND p.proname NOT IN ('can_access_company', 'is_company_owner');
+     AND p.proname NOT IN ('can_access_company', 'is_company_owner',
+                           -- Phase 2 : cycle de vie des imports (identifiant d'import, répondent pour auth.uid())
+                           'validate_balance_import', 'set_reference_balance_import', 'archive_balance_import',
+                           'abandon_balance_import', 'acknowledge_balance_issue');
   SELECT count(*) INTO n2 FROM pg_proc p JOIN pg_namespace s ON s.oid = p.pronamespace
    WHERE s.nspname = 'public' AND p.proname IN ('can_access_company', 'is_company_owner')
      AND (pg_get_function_identity_arguments(p.oid) <> '_company_id uuid' OR has_function_privilege('anon', p.oid, 'EXECUTE'));

@@ -55,6 +55,271 @@ export type Database = {
           },
         ]
       }
+      balance_import_issues: {
+        Row: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          acknowledgement_note: string | null
+          code: string
+          company_id: string
+          created_at: string
+          details: Json
+          id: string
+          import_id: string
+          message: string
+          severity: string
+          source_row: number | null
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          acknowledgement_note?: string | null
+          code: string
+          company_id: string
+          created_at?: string
+          details?: Json
+          id?: string
+          import_id: string
+          message: string
+          severity: string
+          source_row?: number | null
+        }
+        Update: {
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          acknowledgement_note?: string | null
+          code?: string
+          company_id?: string
+          created_at?: string
+          details?: Json
+          id?: string
+          import_id?: string
+          message?: string
+          severity?: string
+          source_row?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "balance_import_issues_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "balance_import_issues_import_id_fkey"
+            columns: ["import_id"]
+            isOneToOne: false
+            referencedRelation: "balance_imports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      balance_imports: {
+        Row: {
+          abandoned_at: string | null
+          amount_basis: string
+          analysed_at: string | null
+          archive_reason: string | null
+          archived_at: string | null
+          archived_by: string | null
+          balance_type: string
+          column_mapping: Json
+          company_id: string
+          content_sha256: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          excluded_rows: Json
+          file_name: string
+          file_path: string | null
+          file_sha256: string | null
+          file_size: number | null
+          fiscal_year_id: string
+          header_row: number | null
+          id: string
+          is_reference: boolean
+          parser_version: string | null
+          period_end: string
+          period_start: string
+          replacement_reason: string | null
+          sheet_name: string | null
+          status: string
+          summary: Json
+          supersedes_import_id: string | null
+          updated_at: string
+          validated_at: string | null
+          validated_by: string | null
+          version: number
+        }
+        Insert: {
+          abandoned_at?: string | null
+          amount_basis: string
+          analysed_at?: string | null
+          archive_reason?: string | null
+          archived_at?: string | null
+          archived_by?: string | null
+          balance_type: string
+          column_mapping?: Json
+          company_id: string
+          content_sha256?: string | null
+          created_at?: string
+          created_by?: string
+          currency?: string
+          excluded_rows?: Json
+          file_name: string
+          file_path?: string | null
+          file_sha256?: string | null
+          file_size?: number | null
+          fiscal_year_id: string
+          header_row?: number | null
+          id?: string
+          is_reference?: boolean
+          parser_version?: string | null
+          period_end: string
+          period_start: string
+          replacement_reason?: string | null
+          sheet_name?: string | null
+          status?: string
+          summary?: Json
+          supersedes_import_id?: string | null
+          updated_at?: string
+          validated_at?: string | null
+          validated_by?: string | null
+          version?: number
+        }
+        Update: {
+          abandoned_at?: string | null
+          amount_basis?: string
+          analysed_at?: string | null
+          archive_reason?: string | null
+          archived_at?: string | null
+          archived_by?: string | null
+          balance_type?: string
+          column_mapping?: Json
+          company_id?: string
+          content_sha256?: string | null
+          created_at?: string
+          created_by?: string
+          currency?: string
+          excluded_rows?: Json
+          file_name?: string
+          file_path?: string | null
+          file_sha256?: string | null
+          file_size?: number | null
+          fiscal_year_id?: string
+          header_row?: number | null
+          id?: string
+          is_reference?: boolean
+          parser_version?: string | null
+          period_end?: string
+          period_start?: string
+          replacement_reason?: string | null
+          sheet_name?: string | null
+          status?: string
+          summary?: Json
+          supersedes_import_id?: string | null
+          updated_at?: string
+          validated_at?: string | null
+          validated_by?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "balance_imports_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "balance_imports_fiscal_year_id_fkey"
+            columns: ["fiscal_year_id"]
+            isOneToOne: false
+            referencedRelation: "fiscal_years"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "balance_imports_supersedes_import_id_fkey"
+            columns: ["supersedes_import_id"]
+            isOneToOne: true
+            referencedRelation: "balance_imports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      balance_lines: {
+        Row: {
+          account_label: string | null
+          account_number: string | null
+          account_number_raw: string | null
+          closing_credit: number | null
+          closing_debit: number | null
+          company_id: string
+          exclusion_reason: string | null
+          id: number
+          import_id: string
+          included: boolean
+          opening_credit: number | null
+          opening_debit: number | null
+          period_credit: number | null
+          period_debit: number | null
+          raw: Json
+          source_row: number
+        }
+        Insert: {
+          account_label?: string | null
+          account_number?: string | null
+          account_number_raw?: string | null
+          closing_credit?: number | null
+          closing_debit?: number | null
+          company_id: string
+          exclusion_reason?: string | null
+          id?: never
+          import_id: string
+          included?: boolean
+          opening_credit?: number | null
+          opening_debit?: number | null
+          period_credit?: number | null
+          period_debit?: number | null
+          raw?: Json
+          source_row: number
+        }
+        Update: {
+          account_label?: string | null
+          account_number?: string | null
+          account_number_raw?: string | null
+          closing_credit?: number | null
+          closing_debit?: number | null
+          company_id?: string
+          exclusion_reason?: string | null
+          id?: never
+          import_id?: string
+          included?: boolean
+          opening_credit?: number | null
+          opening_debit?: number | null
+          period_credit?: number | null
+          period_debit?: number | null
+          raw?: Json
+          source_row?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "balance_lines_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "balance_lines_import_id_fkey"
+            columns: ["import_id"]
+            isOneToOne: false
+            referencedRelation: "balance_imports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           activity_start_date: string | null
@@ -205,8 +470,216 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      abandon_balance_import: {
+        Args: { _import_id: string }
+        Returns: {
+          abandoned_at: string | null
+          amount_basis: string
+          analysed_at: string | null
+          archive_reason: string | null
+          archived_at: string | null
+          archived_by: string | null
+          balance_type: string
+          column_mapping: Json
+          company_id: string
+          content_sha256: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          excluded_rows: Json
+          file_name: string
+          file_path: string | null
+          file_sha256: string | null
+          file_size: number | null
+          fiscal_year_id: string
+          header_row: number | null
+          id: string
+          is_reference: boolean
+          parser_version: string | null
+          period_end: string
+          period_start: string
+          replacement_reason: string | null
+          sheet_name: string | null
+          status: string
+          summary: Json
+          supersedes_import_id: string | null
+          updated_at: string
+          validated_at: string | null
+          validated_by: string | null
+          version: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "balance_imports"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      acknowledge_balance_issue: {
+        Args: { _issue_id: string; _note?: string }
+        Returns: {
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          acknowledgement_note: string | null
+          code: string
+          company_id: string
+          created_at: string
+          details: Json
+          id: string
+          import_id: string
+          message: string
+          severity: string
+          source_row: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "balance_import_issues"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      archive_balance_import: {
+        Args: { _import_id: string; _reason: string }
+        Returns: {
+          abandoned_at: string | null
+          amount_basis: string
+          analysed_at: string | null
+          archive_reason: string | null
+          archived_at: string | null
+          archived_by: string | null
+          balance_type: string
+          column_mapping: Json
+          company_id: string
+          content_sha256: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          excluded_rows: Json
+          file_name: string
+          file_path: string | null
+          file_sha256: string | null
+          file_size: number | null
+          fiscal_year_id: string
+          header_row: number | null
+          id: string
+          is_reference: boolean
+          parser_version: string | null
+          period_end: string
+          period_start: string
+          replacement_reason: string | null
+          sheet_name: string | null
+          status: string
+          summary: Json
+          supersedes_import_id: string | null
+          updated_at: string
+          validated_at: string | null
+          validated_by: string | null
+          version: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "balance_imports"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       can_access_company: { Args: { _company_id: string }; Returns: boolean }
       is_company_owner: { Args: { _company_id: string }; Returns: boolean }
+      set_reference_balance_import: {
+        Args: { _import_id: string }
+        Returns: {
+          abandoned_at: string | null
+          amount_basis: string
+          analysed_at: string | null
+          archive_reason: string | null
+          archived_at: string | null
+          archived_by: string | null
+          balance_type: string
+          column_mapping: Json
+          company_id: string
+          content_sha256: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          excluded_rows: Json
+          file_name: string
+          file_path: string | null
+          file_sha256: string | null
+          file_size: number | null
+          fiscal_year_id: string
+          header_row: number | null
+          id: string
+          is_reference: boolean
+          parser_version: string | null
+          period_end: string
+          period_start: string
+          replacement_reason: string | null
+          sheet_name: string | null
+          status: string
+          summary: Json
+          supersedes_import_id: string | null
+          updated_at: string
+          validated_at: string | null
+          validated_by: string | null
+          version: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "balance_imports"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      validate_balance_import: {
+        Args: {
+          _import_id: string
+          _make_reference?: boolean
+          _reason?: string
+          _replace?: boolean
+        }
+        Returns: {
+          abandoned_at: string | null
+          amount_basis: string
+          analysed_at: string | null
+          archive_reason: string | null
+          archived_at: string | null
+          archived_by: string | null
+          balance_type: string
+          column_mapping: Json
+          company_id: string
+          content_sha256: string | null
+          created_at: string
+          created_by: string
+          currency: string
+          excluded_rows: Json
+          file_name: string
+          file_path: string | null
+          file_sha256: string | null
+          file_size: number | null
+          fiscal_year_id: string
+          header_row: number | null
+          id: string
+          is_reference: boolean
+          parser_version: string | null
+          period_end: string
+          period_start: string
+          replacement_reason: string | null
+          sheet_name: string | null
+          status: string
+          summary: Json
+          supersedes_import_id: string | null
+          updated_at: string
+          validated_at: string | null
+          validated_by: string | null
+          version: number
+        }
+        SetofOptions: {
+          from: "*"
+          to: "balance_imports"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
     }
     Enums: {
       [_ in never]: never
